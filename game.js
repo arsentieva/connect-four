@@ -96,20 +96,33 @@ export class Game {
     if (this.winnerColor !== "purple") {
       return;
     }
+
     let groupOne = this.columns.slice(0, 3);
     let rowInspect1 = new RowWinInspector(...groupOne);
     let color1 = rowInspect1.inspect();
+    if (color1 !== "purple") {
+      return color1;
+    }
 
     let groupTwo = this.columns.slice(1, 4);
     let rowInspect2 = new RowWinInspector(...groupTwo);
     let color2 = rowInspect2.inspect();
+    if (color2 !== "purple") {
+      return color2;
+    }
 
     let groupThree = this.columns.slice(2, 5);
     let rowInspect3 = new RowWinInspector(...groupThree);
     let color3 = rowInspect3.inspect();
+    if (color3 !== "purple") {
+      return color3;
+    }
 
     let groupFour = this.columns.slice(3, 6);
     let rowInspect4 = new RowWinInspector(...groupFour);
     let color4 = rowInspect4.inspect();
+    if (color4 !== "purple") {
+      return color4;
+    }
   }
 }
