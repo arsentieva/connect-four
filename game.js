@@ -1,3 +1,3 @@
-class Game {}
+export class Game {}
 
-module.exports = { Game };
+// exports.Game = Game;

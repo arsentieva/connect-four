@@ -1,7 +1,34 @@
-//When a row is isFull, then you will want to indicated to the players that the option to drop a token in that row is no longer valid
-// You can do this by setting the class "isFull" on the appropriate row.
+import { Game } from "./game.js";
+let game = undefined;
+function updateUI() {
+  if (game === undefined) {
+  }
+}
+const target = document.getElementById("click-targets");
+const newGameButton = document.getElementById("new-game");
+const formHolder = document.getElementById("form-holder");
+let playerOne = document.getElementById("player-1-name");
+let playerTwo = document.getElementById("player-2-name");
 window.addEventListener("DOMContentLoaded", (event) => {
-  const target = document.getElementById("click-targets");
+  formHolder.addEventListener("keyup", handleNewGameButton);
+
+  newGameButton.addEventListener("click", (event) => {
+    game = new Game(playerOne.value, playerTwo.value);
+    playerOne.value = "";
+    playerTwo.value = "";
+    handleNewGameButton();
+    updateUI();
+  });
+
+  function handleNewGameButton() {
+    if (playerOne.value !== "" && playerTwo.value !== "") {
+      newGameButton.disabled = false;
+    } else {
+      newGameButton.disabled = true;
+    }
+  }
+
+  /*************************************************** */
 
   const player1 = "black";
   const player2 = "red";
