@@ -1,4 +1,5 @@
 import { Column } from "./column.js";
+import { ColumnWinInspector } from "./column-win-inspector.js";
 export class Game {
   constructor(playerOneName, playerTwoName) {
     this.playerOneName = playerOneName;
@@ -10,6 +11,12 @@ export class Game {
   }
 
   getName() {
+    if (this.winnerColor === "black") {
+      return `${this.playerOneName} wins!`;
+    }
+    if (this.winnerColor === "red") {
+      return `${this.playerTwoName} wins!`;
+    }
     if (this.winnerColor === "orange") {
       return `${this.playerOneName} ties with ${this.playerTwoName}!`;
     }
@@ -17,7 +24,6 @@ export class Game {
   }
 
   playInColumn(number) {
-    // debugger;
     this.currentColumn = this.columns[number];
     this.currentColumn.addToken(this.currentPlayer);
     if (this.currentPlayer === "black") {
@@ -26,6 +32,7 @@ export class Game {
       this.currentPlayer = "black";
     }
     this.checkForTie();
+    this.checkForColumnWin();
   }
 
   initializeColumns() {
@@ -42,7 +49,9 @@ export class Game {
   }
 
   isColumnFull(index) {
-    // debugger;
+    if (this.winnerColor === "black" || this.winnerColor === "red") {
+      return true;
+    }
     return this.columns[index].isFull();
   }
 
@@ -54,14 +63,29 @@ export class Game {
   }
 
   allColumnsFull() {
-    for (let i = 0; i <= this.columns.length - 1; i++) {
+    //   for (let i = 0; i <= this.columns.length - 1; i++) {
+    //     let column = this.columns[i];
+    //     if (!this.isColumnFull(i)) {
+    //       return false;
+    //     }
+    //   }
+    //   return true;
+    // }
+    return this.columns.every((column, i) => {
+      return column.isFull(i);
+    });
+  }
+  checkForColumnWin() {
+    if (this.winnerColor !== "purple") {
+      return;
+    }
+    for (let i = 0; i < this.columns.length; i++) {
       let column = this.columns[i];
-      if (!this.isColumnFull(column)) {
-        return false;
+      let columnInspector = new ColumnWinInspector(column);
+      let color = columnInspector.inspect();
+      if (color !== "purple") {
+        this.winnerColor = color;
       }
     }
-    return true;
   }
 }
-
-// exports.Game = Game;
