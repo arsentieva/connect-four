@@ -2,13 +2,19 @@ import { Game } from "./game.js";
 let game = undefined;
 function updateUI() {
   if (game === undefined) {
+    boarerHolder.classList.add("is-invisible");
+  } else {
+    boarerHolder.classList.remove("is-invisible");
+    gameName.innerHTML = game.getName();
   }
 }
 const target = document.getElementById("click-targets");
 const newGameButton = document.getElementById("new-game");
 const formHolder = document.getElementById("form-holder");
+const boarerHolder = document.getElementById("board-holder");
 let playerOne = document.getElementById("player-1-name");
 let playerTwo = document.getElementById("player-2-name");
+let gameName = document.getElementById("game-name");
 window.addEventListener("DOMContentLoaded", (event) => {
   formHolder.addEventListener("keyup", handleNewGameButton);
 

@@ -1,3 +1,12 @@
-export class Game {}
+export class Game {
+  constructor(playerOneName, playerTwoName) {
+    this.playerOneName = playerOneName;
+    this.playerTwoName = playerTwoName;
+  }
+
+  getName() {
+    return this.playerOneName + " vs. " + this.playerTwoName;
+  }
+}
 
 // exports.Game = Game;
