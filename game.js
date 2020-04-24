@@ -6,9 +6,13 @@ export class Game {
     this.currentPlayer = "black";
     this.columns = this.initializeColumns();
     this.currentColumn = -1;
+    this.winnerColor = "purple";
   }
 
   getName() {
+    if (this.winnerColor === "orange") {
+      return `${this.playerOneName} ties with ${this.playerTwoName}!`;
+    }
     return this.playerOneName + " vs. " + this.playerTwoName;
   }
 
@@ -21,6 +25,7 @@ export class Game {
     } else {
       this.currentPlayer = "black";
     }
+    this.checkForTie();
   }
 
   initializeColumns() {
@@ -35,8 +40,27 @@ export class Game {
     let token = this.currentColumn.getTokenAt(row);
     return token;
   }
+
   isColumnFull(index) {
+    // debugger;
     return this.columns[index].isFull();
+  }
+
+  checkForTie() {
+    let allFull = this.allColumnsFull();
+    if (allFull) {
+      this.winnerColor = "orange";
+    }
+  }
+
+  allColumnsFull() {
+    for (let i = 0; i <= this.columns.length - 1; i++) {
+      let column = this.columns[i];
+      if (!this.isColumnFull(column)) {
+        return false;
+      }
+    }
+    return true;
   }
 }
 
